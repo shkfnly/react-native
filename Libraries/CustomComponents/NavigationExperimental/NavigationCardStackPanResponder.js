@@ -257,7 +257,7 @@ function forVertical(
 function forReverse(
   props: Props,
 ): NavigationPanPanHandlers {
-  let propsCopy = Object.assign({}, props, {reversed: true}
+  let propsCopy = Object.assign({}, props, {reversed: true})
   return createPanHandlers(Directions.HORIZONTAL, propsCopy);
 }
 
