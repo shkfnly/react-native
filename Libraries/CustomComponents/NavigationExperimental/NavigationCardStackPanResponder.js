@@ -163,7 +163,7 @@ class NavigationCardStackPanResponder extends NavigationAbstractPanResponder {
     const distance = isVertical ?
       layout.height.__getValue() :
       layout.width.__getValue();
-    const currentValue = I18nManager.isRTL && axis === 'dx' ?
+    const currentValue =(props.reversed || I18nManager.isRTL) && axis === 'dx' ?
       this._startValue + (gesture[axis] / distance) :
       this._startValue - (gesture[axis] / distance);
 
@@ -187,7 +187,7 @@ class NavigationCardStackPanResponder extends NavigationAbstractPanResponder {
     const isVertical = this._isVertical;
     const axis = isVertical ? 'dy' : 'dx';
     const index = props.navigationState.index;
-    const distance = I18nManager.isRTL && axis === 'dx' ?
+    const distance = (props.reversed || I18nManager.isRTL) && axis === 'dx' ?
       -gesture[axis] :
       gesture[axis];
 
@@ -254,6 +254,12 @@ function forVertical(
 ): NavigationPanPanHandlers {
   return createPanHandlers(Directions.VERTICAL, props);
 }
+function forReverse(
+  props: Props,
+): NavigationPanPanHandlers {
+  let propsCopy = Object.assign({}, props, {reversed: true}
+  return createPanHandlers(Directions.HORIZONTAL, propsCopy);
+}
 
 module.exports = {
   // constants
@@ -268,4 +274,5 @@ module.exports = {
   // methods.
   forHorizontal,
   forVertical,
+  forReverse
 };
