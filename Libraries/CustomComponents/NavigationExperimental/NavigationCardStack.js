@@ -295,9 +295,12 @@ class NavigationCardStack extends React.Component<DefaultProps, Props, void> {
         onNavigateBack: this.props.onNavigateBack,
         gestureResponseDistance: this.props.gestureResponseDistance,
       };
-      panHandlers = isVertical ?
-        NavigationCardStackPanResponder.forVertical(panHandlersProps) :
-        NavigationCardStackPanResponder.forHorizontal(panHandlersProps);
+      panHandlers = this.props.reversed
+        ? NavigationCardStackPanResponder.forReverse(panHandlersProps)
+        : (isVertical
+          ? NavigationCardStackPanResponder.forVertical(panHandlersProps)
+          : NavigationCardStackPanResponder.forHorizontal(panHandlersProps)
+          )
     }
 
     return (
